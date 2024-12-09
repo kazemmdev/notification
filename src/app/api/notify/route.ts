@@ -6,7 +6,7 @@ const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!;
 const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY!;
 
 webPush.setVapidDetails(
-  'mailto:test@example.com',
+  'mailto:k90mirzaei@gmail.com',
   VAPID_PUBLIC_KEY,
   VAPID_PRIVATE_KEY
 );
