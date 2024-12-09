@@ -1,7 +1,5 @@
 import withPWA from "next-pwa"
 
-import WorkboxWebpackPlugin from "workbox-webpack-plugin"
-
 const pwaConfig = {
   dest: "public",
   disable: false,
@@ -10,13 +8,6 @@ const pwaConfig = {
   skipWaiting: true,
   sw: "sw.js",
   swSrc: "service-worker.js",
-  exclude: [
-    ({ asset, compilation }) => {
-      return !!(asset.name.startsWith("server/") ||
-        asset.name.match(/^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/));
-
-    }
-  ],
 }
 
 /** @type {import("next").NextConfig} */
@@ -25,17 +16,6 @@ const nextConfig = withPWA(pwaConfig)({
   reactStrictMode: false,
   eslint: {
     ignoreDuringBuilds: true
-  },
-  webpack(config, { isServer }) {
-    if (!isServer) {
-      config.plugins.push(
-        new WorkboxWebpackPlugin.InjectManifest({
-          swSrc: './public/sw.js', // Path to your custom service worker
-          swDest: 'sw.js', // Destination in the output directory
-        })
-      );
-    }
-    return config;
   },
   // async headers() {
   //   return [
