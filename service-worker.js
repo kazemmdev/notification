@@ -30,9 +30,11 @@ self.addEventListener("message", (event) => {
   }
 })
 
-self.addEventListener("fetch", () => {
-  // Handle fetch events
-})
+self.addEventListener("fetch", (event) => {
+  if (event.request.url.includes("/_next/")) {
+    event.respondWith(fetch(event.request));
+  }
+});
 
 self.addEventListener("push", (event) => {
   console.log("Push event received:", event);

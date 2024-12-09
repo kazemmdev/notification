@@ -6,6 +6,7 @@ const pwaConfig = {
   register: true,
   dynamicStartUrl: true,
   skipWaiting: true,
+  mode: "production",
   sw: "sw.js",
   swSrc: "service-worker.js",
   exclude: [
@@ -15,6 +16,7 @@ const pwaConfig = {
 
     }
   ],
+  injectManifest: true,
 }
 
 /** @type {import("next").NextConfig} */
@@ -23,6 +25,18 @@ const nextConfig = withPWA(pwaConfig)({
   reactStrictMode: false,
   eslint: {
     ignoreDuringBuilds: true
+  },
+  webpack(config, { isServer }) {
+    if (!isServer) {
+      const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+      config.plugins.push(
+        new WorkboxWebpackPlugin.InjectManifest({
+          swSrc: './public/sw.js', // Path to your custom service worker
+          swDest: 'sw.js', // Destination in the output directory
+        })
+      );
+    }
+    return config;
   },
   // async headers() {
   //   return [
