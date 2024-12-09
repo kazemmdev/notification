@@ -58,14 +58,14 @@ self.addEventListener("push", (event) => {
   const payload = event.data.json();
   console.log("Push payload:", payload);
 
-  const { body, icon, image, badge, url, title } = payload;
+  const { title, message: body, icon, image, badge, url } = payload;
   const notificationTitle = title || "Default Title";
   const notificationOptions = {
-    body,
-    icon,
-    image,
-    badge,
-    data: { url },
+    body: body || "Default body text.",
+    icon: icon || "/icon.png",
+    image: image || null, // Set to null if unsupported
+    badge: badge || "/default-badge.png",
+    data: { url: url || "/" },
   };
 
   event.waitUntil(
