@@ -9,16 +9,13 @@
     "sourceType": "module"
   },
   "plugins": [
-    "@typescript-eslint",
-    "simple-import-sort",
-    "unused-imports"
+    "@typescript-eslint"
   ],
   "extends": [
     "next",
     "next/core-web-vitals"
   ],
   "rules": {
-    "unused-imports/no-unused-imports": "warn",
     "@typescript-eslint/consistent-type-imports": "warn",
     "@typescript-eslint/no-non-null-assertion": 0,
     "@typescript-eslint/no-non-null-asserted-optional-chain": 0,
@@ -28,8 +25,6 @@
     "react/jsx-no-undef": "warn",
     "react/display-name": 0,
     "no-console": 0,
-    "simple-import-sort/imports": 0,
-    "simple-import-sort/exports": 0,
     "import/first": "error",
     "import/newline-after-import": "error"
   }
