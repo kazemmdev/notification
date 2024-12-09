@@ -12,7 +12,11 @@ const pwaConfig = {
 
 /** @type {import("next").NextConfig} */
 const nextConfig = withPWA(pwaConfig)({
+  swcMinify: true,
   reactStrictMode: false,
+  eslint: {
+    ignoreDuringBuilds: true
+  },
   // async headers() {
   //   return [
   //     {

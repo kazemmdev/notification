@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+import type { NextRequest} from 'next/server';
+import { NextResponse } from 'next/server';
 import webPush from 'web-push';
 
 const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!;
@@ -28,5 +29,5 @@ export async function POST(req: NextRequest) {
     webPush.sendNotification(subscription, payload).catch(console.error);
   });
 
-  return NextResponse.json({ message: 'Notifications sent', payload }, { status: 200 });
+  return NextResponse.json({ message: 'Notifications sent' }, { status: 200 });
 }
