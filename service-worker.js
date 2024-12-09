@@ -5,9 +5,8 @@ skipWaiting()
 clientsClaim()
 
 const WB_MANIFEST = self.__WB_MANIFEST
-const filteredManifest = WB_MANIFEST.filter((entry) => !entry.url.startsWith('_next/'));
 
-precacheAndRoute(filteredManifest);
+precacheAndRoute(WB_MANIFEST);
 cleanupOutdatedCaches()
 
 self.addEventListener("install", (event) => {
