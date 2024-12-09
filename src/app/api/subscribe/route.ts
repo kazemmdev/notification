@@ -1,5 +1,7 @@
 import type { NextRequest} from 'next/server';
 import { NextResponse } from 'next/server';
+import { getDatabase } from "@/libs/db"
+import type { Subscriptions } from "@/schema/subscriptions"
 
 interface PushSubscription {
   endpoint: string;
@@ -9,11 +11,16 @@ interface PushSubscription {
   };
 }
 
-const subscriptions: PushSubscription[] = [];
-
 export async function POST(req: NextRequest) {
-  const subscription: PushSubscription = await req.json();
-  console.log(subscription)
-  subscriptions.push(subscription); 
-  return NextResponse.json({ message: 'Subscription saved' }, { status: 201 });
+  const body: PushSubscription = await req.json();
+
+  const db = await getDatabase();
+  const collection = db.collection<Subscriptions>("subscriptions");
+  const result = await collection.insertOne({
+    endpoint: body?.endpoint,
+    key: body?.keys?.auth,
+    token: body?.keys?.p256dh
+  });
+
+  return NextResponse.json({ message: 'Subscription saved', result }, { status: 201 });
 }
