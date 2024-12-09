@@ -7,10 +7,14 @@
     "devs": "next dev --experimental-https",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma:generate": "npx prisma generate --schema=./prisma/schema.prisma",
+    "prisma:migrate_dev": "npx prisma migrate dev --schema=./prisma/schema.prisma",
+    "vercel-build": "npx prisma generate && npx prisma migrate deploy && next build --experimental-build-mode compile"
   },
   "dependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
+    "@prisma/client": "^6.0.1",
     "@types/web-push": "^3.6.4",
     "axios": "^1.7.9",
     "mongodb": "^6.11.0",
@@ -18,6 +22,7 @@
     "next": "14.2.18",
     "next-auth": "^4.24.11",
     "next-pwa": "^5.6.0",
+    "prisma": "^6.0.1",
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",

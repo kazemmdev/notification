@@ -1,8 +1,7 @@
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
 import webPush from "web-push"
-import { getDatabase } from "@/libs/db"
-import type { Subscriptions } from "@/schema/subscriptions"
+import { db } from "@/libs/db"
 
 const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!
 const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY!
@@ -24,13 +23,9 @@ interface PushSubscription {
 export async function POST(req: NextRequest) {
   const { title, message }: { title: string; message: string } = await req.json()
   const payload = JSON.stringify({ title, message })
+  const items = db.subscriptions.findMany()
 
-  const db = await getDatabase()
-  const collection = db.collection<Subscriptions>("subscriptions")
-  const items = await collection.find({}).toArray()
-
-
-  items.forEach((subscription) => {
+  items.forEach((subscription: any) => {
     const push: PushSubscription = {
       endpoint: subscription.endpoint,
       keys: { auth: subscription?.key, p256dh: subscription?.token },
