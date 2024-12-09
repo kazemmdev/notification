@@ -23,7 +23,7 @@ interface PushSubscription {
 export async function POST(req: NextRequest) {
   const { title, message }: { title: string; message: string } = await req.json()
   const payload = JSON.stringify({ title, message })
-  const items = db.subscriptions.findMany()
+  const items = await db.subscriptions.findMany()
 
   items.forEach((subscription: any) => {
     const push: PushSubscription = {
