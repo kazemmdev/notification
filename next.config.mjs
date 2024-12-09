@@ -7,7 +7,14 @@ const pwaConfig = {
   dynamicStartUrl: true,
   skipWaiting: true,
   sw: "sw.js",
-  swSrc: "service-worker.js"
+  swSrc: "service-worker.js",
+  exclude: [
+    ({ asset, compilation }) => {
+      return !!(asset.name.startsWith("server/") ||
+        asset.name.match(/^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/));
+
+    }
+  ],
 }
 
 /** @type {import("next").NextConfig} */
