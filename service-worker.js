@@ -1,3 +1,10 @@
+import { cleanupOutdatedCaches, precacheAndRoute } from "workbox-precaching"
+
+const WB_MANIFEST = self.__WB_MANIFEST
+self.__WB_DISABLE_DEV_LOGS = true
+precacheAndRoute(WB_MANIFEST)
+cleanupOutdatedCaches()
+
 self.addEventListener("install", (event) => {
   console.log("install", event.target)
   self.skipWaiting() // Activate the new service worker immediately
